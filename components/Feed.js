@@ -1,135 +1,67 @@
 import React from 'react'
-import { StyleSheet, Text, Image, View } from 'react-native'
+import { StyleSheet, Text, Image, View, FlatList } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 
 export default function Feed() {
-  return (
-    <View style={styles.feed}>
+  const feed = [
+    {
+      id: 1,
+      nome: 'Piu Piu',
+      imgPerfil: require('../assets/images/piupiu.jpg'),
+      img: require('../assets/images/tinytoons.jpg'),
+      aspectRatio: 1.777
+    },
+    {
+      id: 2,
+      nome: 'Pernalonga',
+      imgPerfil: require('../assets/images/pernalonga.png'),
+      img: require('../assets/images/tinytoons3.jpg'),
+      aspectRatio: 1.595
+    },
+    {
+      id: 3,
+      nome: 'Taz',
+      imgPerfil: require('../assets/images/taz.jpg'),
+      img: require('../assets/images/tinytoons2.jpg'),
+      aspectRatio: 0.712
+    },
+    {
+      id: 4,
+      nome: 'Felicia',
+      imgPerfil: require('../assets/images/felicia.png'),
+      img: require('../assets/images/tinytoons.jpg'),
+      aspectRatio: 1.777 /* aspectRatio={altura/largura}   1280/720=1,7777  CSS height: undefined*/
+    }
+  ]
+
+  function renderItem({ item }) {
+    return (
       <View style={styles.post}>
         <View style={styles.postheader}>
           <View style={styles.postheaderesquerda}>
-            <Image
-              style={styles.postheaderimg}
-              source={require('../assets/images/piupiu.jpg')}
-            />
-            <Text>Piu Piu</Text>
+            <Image style={styles.postheaderimg} source={item.imgPerfil} />
+            <Text>{item.nome}</Text>
           </View>
           <FontAwesome5 name="ellipsis-h" size={16} color="black" />
         </View>
         {/* aspectRatio={altura/largura}   1280/720=1,7777  CSS height: undefined*/}
-        <Image
-          style={styles.postimg}
-          aspectRatio={1.777}
-          source={require('../assets/images/tinytoons.jpg')}
-        />
+        <Image style={styles.postimg} aspectRatio={item.aspectRatio} source={item.img} />
         <View style={styles.footer}>
-          <FontAwesome5
-            style={styles.footericon}
-            name="heart"
-            size={36}
-            color="black"
-          />
-          <FontAwesome5
-            style={styles.footericon}
-            name="comment"
-            size={36}
-            color="black"
-          />
+          <FontAwesome5 style={styles.footericon} name="heart" size={36} color="black" />
+          <FontAwesome5 style={styles.footericon} name="comment" size={36} color="black" />
         </View>
       </View>
-      <View style={styles.post}>
-        <View style={styles.postheader}>
-          <View style={styles.postheaderesquerda}>
-            <Image
-              style={styles.postheaderimg}
-              source={require('../assets/images/pernalonga.png')}
-            />
-            <Text>Pernalonga</Text>
-          </View>
-          <FontAwesome5 name="ellipsis-h" size={16} color="black" />
-        </View>
-        <Image
-          style={styles.postimg}
-          aspectRatio={1.777}
-          source={require('../assets/images/tinytoons3.jpg')}
-        />
-        <View style={styles.footer}>
-          <FontAwesome5
-            style={styles.footericon}
-            name="heart"
-            size={36}
-            color="black"
-          />
-          <FontAwesome5
-            style={styles.footericon}
-            name="comment"
-            size={36}
-            color="black"
-          />
-        </View>
-      </View>
-      <View style={styles.post}>
-        <View style={styles.postheader}>
-          <View style={styles.postheaderesquerda}>
-            <Image
-              style={styles.postheaderimg}
-              source={require('../assets/images/taz.jpg')}
-            />
-            <Text>Taz</Text>
-          </View>
-          <FontAwesome5 name="ellipsis-h" size={16} color="black" />
-        </View>
-        <Image
-          style={styles.postimg}
-          aspectRatio={1.777}
-          source={require('../assets/images/tinytoons2.jpg')}
-        />
-        <View style={styles.footer}>
-          <FontAwesome5
-            style={styles.footericon}
-            name="heart"
-            size={36}
-            color="black"
-          />
-          <FontAwesome5
-            style={styles.footericon}
-            name="comment"
-            size={36}
-            color="black"
-          />
-        </View>
-      </View>
-      <View style={styles.post}>
-        <View style={styles.postheader}>
-          <View style={styles.postheaderesquerda}>
-            <Image
-              style={styles.postheaderimg}
-              source={require('../assets/images/felicia.png')}
-            />
-            <Text>Felicia</Text>
-          </View>
-          <FontAwesome5 name="ellipsis-h" size={16} color="black" />
-        </View>
-        <Image
-          style={styles.postimg}
-          aspectRatio={1.777}
-          source={require('../assets/images/tinytoons.jpg')}
-        />
-        <View style={styles.footer}>
-          <FontAwesome5
-            style={styles.footericon}
-            name="heart"
-            size={36}
-            color="black"
-          />
-          <FontAwesome5
-            style={styles.footericon}
-            name="comment"
-            size={36}
-            color="black"
-          />
-        </View>
-      </View>
+    )
+  }
+
+  return (
+    <View style={styles.feed}>
+      <FlatList
+        data={feed}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   )
 }
