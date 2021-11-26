@@ -1,45 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, Image, View, FlatList } from 'react-native'
 
 export default function Stories() {
-  const stories = [
-    {
-      id: 1,
-      nome: 'Pernalonga',
-      src: require('../assets/images/pernalonga.png')
-    },
-    {
-      id: 2,
-      nome: 'Taz',
-      src: require('../assets/images/taz.jpg')
-    },
-    {
-      id: 3,
-      nome: 'Frajola',
-      src: require('../assets/images/frajola.jpg')
-    },
-    {
-      id: 4,
-      nome: 'Patolino',
-      src: require('../assets/images/patolino.jpg')
-    },
-    {
-      id: 5,
-      nome: 'Piupiu',
-      src: require('../assets/images/piupiu.jpg')
-    },
-    {
-      id: 6,
-      nome: 'Felicia',
-      src: require('../assets/images/felicia.png')
+  const [stories, setStories] = useState([]) //HOOK
+
+  // useEffect(() => []))   ARROW FUNCTION
+  // O 2º argumento é chamado de VETOR DE DEPENDÊNCIA
+  useEffect(function () {
+    async function getData() {
+      //P validar o AWAIT
+      const response = await fetch('https://mobile.ect.ufrn.br:3000/stories')
+      const storiesServidor = await response.json()
+      //console.log(storiesServidor)
+      setStories(storiesServidor)
     }
-  ]
+    getData()
+  }, [])
 
   function renderItem({ item }) {
     return (
       <View style={styles.story}>
-        <Image style={styles.imgstory} source={item.src} />
-        <Text>{item.nome}</Text>
+        <Image style={styles.imgstory} source={{ uri: item.imgPerfilUri }} />
+        <Text>{item.nomeUsuario}</Text>
       </View>
     )
   }
