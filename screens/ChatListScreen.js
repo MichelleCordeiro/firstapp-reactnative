@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Image, Text, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, Image, Text, TouchableOpacity } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 
 export default function ChatListScreen({ navigation }) {
@@ -16,13 +16,16 @@ export default function ChatListScreen({ navigation }) {
 
   function renderItem({ item }) {
     return (
-      <View style={styles.chat}>
+      <TouchableOpacity
+        style={styles.chat}
+        onPress={() => navigation.navigate('ChatScreen', { id: item.id })}
+      >
         <Image style={styles.image} source={{ uri: item.imgPerfilUri }} />
         <View style={styles.textBox}>
           <Text style={styles.nome}>{item.nomeUsuario}</Text>
           <Text>{item.ultimaMensagem}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
