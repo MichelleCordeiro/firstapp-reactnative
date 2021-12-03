@@ -2,14 +2,16 @@ import React from 'react'
 import { StyleSheet, Image, View } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 
-export default function App() {
+export default function Header({ navigation }) {
   return (
     <View style={styles.header}>
-      <Image
-        style={styles.ufrngram}
-        source={require('../assets/images/ufrngram.png')}
+      <Image style={styles.ufrngram} source={require('../assets/images/ufrngram.png')} />
+      <FontAwesome5
+        name="paper-plane"
+        size={24}
+        color="black"
+        onPress={() => navigation.navigate('ChatListScreen')}
       />
-      <FontAwesome5 name="paper-plane" size={24} color="black" />
     </View>
   )
 }

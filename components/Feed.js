@@ -9,7 +9,6 @@ export default function Feed() {
     async function getData() {
       const response = await fetch('https://mobile.ect.ufrn.br:3000/feed')
       const feedServidor = await response.json()
-      console.log(feedServidor)
       setFeed(feedServidor)
     }
     getData()

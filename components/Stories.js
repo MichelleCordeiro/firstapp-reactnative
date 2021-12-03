@@ -4,11 +4,12 @@ import { StyleSheet, Text, Image, View, FlatList } from 'react-native'
 export default function Stories() {
   const [stories, setStories] = useState([]) //HOOK
 
-  // useEffect(() => []))   ARROW FUNCTION
+  // useEffect({} => {})   ARROW FUNCTION
   // O 2º argumento é chamado de VETOR DE DEPENDÊNCIA
   useEffect(function () {
     async function getData() {
-      //P validar o AWAIT
+      // ASYNC p validar o AWAIT
+      // AWAIT  para a aplicação p esperar o retorno do servidor
       const response = await fetch('https://mobile.ect.ufrn.br:3000/stories')
       const storiesServidor = await response.json()
       //console.log(storiesServidor)
