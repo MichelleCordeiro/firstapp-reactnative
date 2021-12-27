@@ -1,15 +1,57 @@
-import React from 'react'
-import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Alert } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function LoginScreen({ navigation }) {
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+
+  async function logar() {
+    const json = {
+      // user: user,
+      user, // forma simplificada
+      password
+    }
+
+    const headerOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(json) //Recebe em formato json, mas converte p str
+    }
+    const response = await fetch('https://mobile.ect.ufrn.br:3000/login', headerOptions)
+    // Qdo a resposta é 200 significa q a solicitação foi atendida c sucesso
+    // Se status for 401 não foi possivel logar
+    if (response.status === 200) {
+      const token = await response.text()
+      await AsyncStorage.setItem('token', token)
+      navigation.navigate('HomeScreen')
+      console.log('TOKEN: ' + token)
+    } else {
+      Alert.alert('Erro', 'Usuário ou senha inválidos')
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.loginContainer}>
-        <TextInput style={styles.input} placeholder="Usuário..." />
-        <TextInput style={styles.input} placeholder="Senha..." secureTextEntry={true} />
-        <TouchableOpacity style={styles.sendButton}>
+        <TextInput
+          style={styles.input}
+          placeholder="Usuário..."
+          value={user}
+          onChangeText={setUser}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha..."
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+        />
+        <TouchableOpacity style={styles.sendButton} onPress={() => logar()}>
           <Text>Enviar</Text>
         </TouchableOpacity>
       </View>
