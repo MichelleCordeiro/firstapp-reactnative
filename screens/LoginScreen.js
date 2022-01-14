@@ -28,7 +28,7 @@ export default function LoginScreen({ navigation }) {
       const token = await response.text()
       await AsyncStorage.setItem('token', token)
       navigation.navigate('LoggedTabNavigator')
-      console.log('TOKEN: ' + token)
+      //console.log('TOKEN: ' + token)
     } else {
       Alert.alert('Erro', 'Usuário ou senha inválidos')
     }

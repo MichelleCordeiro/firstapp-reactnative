@@ -1,13 +1,17 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import Constants from 'expo-constants'
+
+import Header from '../components/Header'
+import Pictures from '../components/Pictures'
 
 export default function PictureScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text>Picture Screen</Text>
+      <Header navigation={navigation} />
+      <Pictures navigation={navigation} />
     </View>
   )
 }

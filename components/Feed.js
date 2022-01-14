@@ -15,6 +15,7 @@ export default function Feed() {
   }, [])
 
   function renderItem({ item }) {
+    console.log(item.aspectRatio)
     return (
       <View style={styles.post}>
         <View style={styles.postheader}>
